@@ -1,0 +1,25 @@
+{
+  "name": "carpoolear-websocket",
+  "version": "0.0.1",
+  "description": "Websocket server for carpolear",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "carpoolear",
+    "node",
+    "websocket"
+  ],
+  "author": "STS Rosario",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.2.0",
+    "redis": "^2.8.0",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}
