@@ -1,28 +1,30 @@
+require('dotenv').config({path: '../backend/.env'});
+
 let jwt = require('jsonwebtoken');
 let redis = require('redis');
 
 let server = require('http').createServer();
 let io = require('socket.io')(server);
-server.listen(8890); 
+server.listen(8890);
 
 
-let secret = 'GNU0yagwZuyueXKV0OSfyNXLIqk9bpeR';
-
+let secret = process.env.JWT_SECRET;
+let redisPort = process.env.REDIS_PORT || '6379';
+let redisHost = process.env.REDIS_HOST || '172.19.0.4';
 // [TODO] ENV VAR
 
-let redisClient = redis.createClient(6379, '172.19.0.3'); 
-redisClient.subscribe('user-notify'); 
+let redisClient = redis.createClient(redisPort, redisHost); 
 
-redisClient.on("message", function(channel, plainText) {
-    console.log(channel);
+redisClient.on('ready', () => {
+    console.log('Ready Events');
+    redisClient.psubscribe('user-*'); 
+});
+
+redisClient.on('pmessage', function(pattern, channel, plainText) {
+    console.log(channel, plainText);
     let message = JSON.parse(plainText);
     let payload = message.data;
-    switch (channel) {
-        case 'user-notify':
-            io.to(`user-${payload.user.id}`).emit(message.event, payload);
-            break;
-    }
-    // console.log("mew message in queue "+ message + " channel " + channel);
+    io.to(channel).emit(message.event, payload);
     
 });
 
