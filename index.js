@@ -1,3 +1,4 @@
+
 require('dotenv').config({path: '../backend/.env'});
 
 let jwt = require('jsonwebtoken');
