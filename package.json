@@ -15,8 +15,9 @@
   "author": "STS Rosario",
   "license": "ISC",
   "dependencies": {
+    "@movilizame/noderavel": "^0.5.0",
     "dotenv": "^5.0.1",
-    "jsonwebtoken": "^8.2.0",
+    "jsonwebtoken": "^8.2.0", 
     "redis": "^2.8.0",
     "socket.io": "^2.0.4"
   },
